@@ -8,7 +8,6 @@ let arrayNameContainer = ['index', 'docket_no', 'offenses', 'offense_date', 'arr
 let actualArrays = new Array(arrayNameContainer.length);
 
 function importCsvAndSet() {
-    setLoadStatus("Hi!")
     $.ajax({
         async: false,
         type: 'GET',
@@ -21,28 +20,35 @@ function importCsvAndSet() {
              * Turns actualArrays into an array of arrays to be used in the format of:
              * 		actualArrays[indexOfDesiredBondCase][indexOfDesiredNameContainer]
              */
-            for (let i = 0; i < arrayNameContainer.length; i++) {
+            for (let i = 0; i < arrayNameContainer.length; i++)
                 actualArrays[i] = new Array((data.length));
-            }
 
-            for (let i = 0; i < arrayNameContainer.length; i++) {
-                for (let j = 0; j < data.length; j++) {
+            for (let i = 0; i < arrayNameContainer.length; i++)
+                for (let j = 0; j < data.length; j++)
                     actualArrays[i][j] = data[j][i];
-                }
-            }
         }
     });
 }
 
-function testyy() {
+function displayFormattedCsv() {
     let standardOrder = [1, 17, /* 3, */ 4, 5, 6, 7, /* 8, */ 9, 10, 11, 12, 13, 14, 15]
     let outputText = ""
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2
+    })
 
     for (let i = 1; i < blah.length; i++) { // Loop through every title element
         outputText += "<tr>"
 
         for (let j = 0; j < standardOrder.length; j++)
             switch (standardOrder[j]) {
+                case 11:
+                case 12: {
+                    outputText += "<td>" + formatter.format(parseFloat(actualArrays[standardOrder[j]][i])) + "</td>"
+                    break;
+                }
                 case 15: {
                     outputText += "<td>" + actualArrays[standardOrder[j]][i] + ",<br/> "
                         + actualArrays[standardOrder[j] + 1][i] + "</td>"
@@ -67,8 +73,4 @@ function testyy() {
         $('#dtBasicExample').add();
         $('.dataTables_length').addClass('bs-select');
     });
-}
-
-function setLoadStatus(status) {
-    $('#xLoader').html(status);
 }

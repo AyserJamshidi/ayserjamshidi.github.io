@@ -3,7 +3,6 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Philadelphia Bail Fund Overview</title>
-	<!--<link rel="stylesheet" href="css/styles.css"> -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/db_style.css">
 	<link rel="stylesheet" href="css/addons/datatables.min.css">
@@ -11,34 +10,41 @@
 	<link rel="stylesheet" href="css/xloader.css">
 
 
+	<!-- Local jQuery -->
 	<script src="js/jquery.js"></script>
 
 	<!-- MDBootstrap Datatables  -->
 	<script type="text/javascript" src="js/addons/datatables.min.js"></script>
 
-	<!--<script src="js/bootstrap.min.js"></script>-->
+	<!-- Bootstrap init -->
+	<script src="js/bootstrap.min.js"></script>
 
+	<!-- jQuery-CSV init -->
 	<script src="js/jquery.csv.js"></script>
-	<script src="js/javafile.js"></script>
 
+	<!-- CSV Manipulating Functions init -->
+	<script src="js/javafile.js"></script>
 
 	<script>importCsvAndSet();</script>
 </head>
 <body>
 
+<!-- Loading screen that applies itself over the main page until the end of the page is reached. -->
 <div id="loading">
 	<div id="loading-image">
 		<div id="xLoader">
 			<div class="google-spin-wrapper">
 				<div class="google-spin"></div>
 			</div>
+			Please wait, loading...
 		</div>
 	</div>
 </div>
 
+<!-- Top of the page -->
 <div class="jumbotron-fluid">
 	<div class="container">
-		<h1 class="display-4 d-inline">Bail Fund Overview</h1>
+		<h1 class="display-4 text-center inlin">Philadelphia Bail Fund Overview</h1>
 		<br/>
 
 		<div class="custom-control custom-checkbox custom-control-inline">
@@ -90,7 +96,7 @@
 			<label class="custom-control-label" for="defaultChecked12">Bail Paid</label>
 		</div>
 		<div class="custom-control custom-checkbox custom-control-inline">
-			<input type="checkbox" id="defaultChecked13" name="defaultChecked13" class="custom-control-input">
+			<input type="checkbox" id="defaultChecked13" name="defaultChecked13" checked class="custom-control-input">
 			<label class="custom-control-label" for="defaultChecked13">Bail Date</label>
 		</div>
 		<div class="custom-control custom-checkbox custom-control-inline">
@@ -98,7 +104,7 @@
 			<label class="custom-control-label" for="defaultChecked14">Bail Type</label>
 		</div>
 		<div class="custom-control custom-checkbox custom-control-inline">
-			<input type="checkbox" id="defaultChecked15" name="defaultChecked15" class="custom-control-input">
+			<input type="checkbox" id="defaultChecked15" name="defaultChecked15" checked class="custom-control-input">
 			<label class="custom-control-label" for="defaultChecked15">Prelim Hearing</label>
 		</div>
 
@@ -130,7 +136,7 @@
 		<thead>
 		<tr>
 			<th class="th-sm">Docket Number</th>
-			<th class="th-sm">Parsed Offenses</th>
+			<th class="th-sm">Offenses</th> <!-- Actually parsed offenses -->
 			<th class="th-sm">Date</th> <!-- Offense Date -->
 			<!--<th class="th-sm">Arrest Date</th>-->
 			<th class="th-sm">Status</th> <!-- Case Status-->
@@ -138,7 +144,7 @@
 			<th class="th-sm">Attorney</th>
 			<!--<th class="th-sm">D.O.B</th>--> <!-- Date of Birth -->
 			<th class="th-sm">Zip</th>
-			<th class="th-sm">Bail Set By</th>
+			<th class="th-sm">Bail By</th> <!-- Bail Set By -->
 			<th class="th-sm">Bail Amount</th>
 			<th class="th-sm">Bail Paid</th>
 			<th class="th-sm">Bail Date</th>
@@ -171,31 +177,10 @@
 		</tfoot>
 	</table>
 </div>
-</div>
-
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-	<li class="nav-item">
-		<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-		   aria-selected="true">Home</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-		   aria-selected="false">Profile</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-		   aria-selected="false">Contact</a>
-	</li>
-</ul>
-<div class="tab-content" id="myTabContent">
-	<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-	<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-	<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
-</div>
-
-<script> testyy(); </script>
 
 <script>
+    displayFormattedCsv();
+
     $(document).ready(function () {
         $('#loading').fadeOut();
     });
