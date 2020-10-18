@@ -1,0 +1,46 @@
+Index: index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n\t<title>Title</title>\r\n\t<link rel=\"stylesheet\" href=\"css/db_style.css\">\r\n\t<link rel=\"stylesheet\" href=\"css/bootstrap.min.css\">\r\n\t<link rel=\"stylesheet\" href=\"css/addons/datatables.min.css\">\r\n\t<!-- <link rel=\"stylesheet\" href=\"css/styles.css\"> -->\r\n\r\n\t<script src=\"js/jquery.js\"></script>\r\n\t<script src=\"js/bootstrap.min.js\"></script>\r\n\r\n\t<!-- MDBootstrap Datatables  -->\r\n\t<script type=\"text/javascript\" src=\"js/addons/datatables.min.js\"></script>\r\n\t<script src=\"js/jquery.csv.js\"></script>\r\n\r\n\r\n\t<script>\r\n        let blah;\r\n\r\n        // Docket, Offenses, Offense Date, Attorney,\r\n        let arrayNameContainer = ['index', 'docket_no', 'offenses', 'offense_date', 'arrest_dt', 'case_status',\r\n            'arresting_officer', 'attorney', 'dob', 'zip', 'bail_set_by', 'bail_amount', 'bail_paid', 'bail_date',\r\n            'bail_type', 'prelim_hearing_dt', 'prelim_hearing_time', 'parsed_offenses']\r\n        let actualArrays = new Array(arrayNameContainer.length);\r\n\r\n        $.ajax({\r\n            async: false,\r\n            type: 'GET',\r\n            url: 'csv/parsed1.csv',\r\n            success: function (responseText) {\r\n                var data = $.csv2Array(responseText);\r\n                blah = data;\r\n\r\n                /*\r\n\t\t\t\t * Turns actualArrays into an array of arrays to be used in the format of:\r\n\t\t\t\t * \t\tactualArrays[indexOfDesiredArray][indexOfDesiredBondCase]\r\n\t\t\t\t */\r\n                for (let i = 0; i < arrayNameContainer.length; i++) {\r\n                    // Creat\r\n                    actualArrays[i] = new Array((data.length));\r\n                }\r\n\r\n                // data[j][1]\r\n                // actualArrays[1][j]\r\n                for (let i = 0; i < arrayNameContainer.length; i++) {\r\n                    for (let j = 0; j < data.length; j++) {\r\n                        actualArrays[i][j] = data[j][i];\r\n                    }\r\n                }\r\n            }\r\n        });\r\n\r\n\r\n        /*function getCsvFile() {\r\n            return $.get(\"csv/parsed1.csv\");\r\n        }*/\r\n\r\n        // getCsvFile().then(function (responseText) {\r\n        //     var data = $.csv2Array(responseText);\r\n        //\r\n        //     /*\r\n        //      * Turns actualArrays into an array of arrays to be used in the format of:\r\n        //      * \t\tactualArrays[indexOfDesiredArray][indexOfDesiredBondCase]\r\n        //      */\r\n        //     for (let i = 0; i < arrayNameContainer.length; i++) {\r\n        //         // Creat\r\n        //         actualArrays[i] = new Array((data.length));\r\n        //     }\r\n        //\r\n        //     // data[j][1]\r\n        //     // actualArrays[1][j]\r\n        //     for (let i = 0; i < arrayNameContainer.length; i++) {\r\n        //         for (let j = 0; j < data.length; j++) {\r\n        //             actualArrays[i][j] = data[j][i];\r\n        //         }\r\n        //     }\r\n        //\r\n        //     //blah = data;\r\n        //     // $('#body').html(data);\r\n        // });\r\n\t</script>\r\n</head>\r\n<body>\r\n\r\n<div id=\"navbar\">\r\n\t<a href=\"javascript:void(0)\">Home</a>\r\n\t<a href=\"javascript:void(0)\">Filters</a>\r\n\t<a href=\"javascript:void(0)\">Options</a>\r\n</div>\r\n\r\n<div class=\"middleHead\">\r\n\r\n\t<h1>Data</h1>\r\n</div>\r\n\r\n<script>\r\n    // When the user scrolls the page, execute myFunction\r\n    window.onscroll = function () {\r\n        myFunction()\r\n    };\r\n\r\n    // Get the navbar\r\n    var navbar = document.getElementById(\"navbar\");\r\n\r\n    // Get the offset position of the navbar\r\n    var sticky = navbar.offsetTop;\r\n\r\n    // Add the sticky class to the navbar when you reach its scroll position. Remove \"sticky\" when you leave the scroll position\r\n    function myFunction() {\r\n        if (window.pageYOffset >= sticky) {\r\n            navbar.classList.add(\"sticky\")\r\n        } else {\r\n            navbar.classList.remove(\"sticky\");\r\n        }\r\n    }\r\n</script>\r\n\r\n\r\n<script>\r\n    window.onscroll = function () {\r\n        myFunction()\r\n    };\r\n\r\n    var navbar = document.getElementById(\"navbar\");\r\n    var sticky = navbar.offsetTop;\r\n\r\n    function myFunction() {\r\n        if (window.pageYOffset >= sticky) {\r\n            navbar.classList.add(\"sticky\")\r\n        } else {\r\n            navbar.classList.remove(\"sticky\");\r\n        }\r\n    }\r\n</script>\r\n\r\n<!-- <textarea id=\"result\" style=\"height: 940px;\"></textarea> -->\r\n\r\n\r\n<table id=\"dtBasicExample\" class=\"table table-striped table-bordered table-sm\" cellspacing=\"0\" width=\"100%\">\r\n\t<thead>\r\n\t<tr>\r\n\t\t<th class=\"th-sm\">Docket Number</th>\r\n\t\t<th class=\"th-sm\">Offense(s)</th>\r\n\t\t<th class=\"th-sm\">Offense Date</th>\r\n\t\t<th class=\"th-sm\">Arrest Date</th>\r\n\t\t<th class=\"th-sm\">Case Status</th>\r\n\t\t<th class=\"th-sm\">Arresting Officer</th>\r\n\t\t<th class=\"th-sm\">Attorney</th>\r\n\t\t<th class=\"th-sm\">D-O-B</th>\r\n\t\t<th class=\"th-sm\">Zip</th>\r\n\t\t<th class=\"th-sm\">Bail Set By</th>\r\n\t\t<th class=\"th-sm\">Bail Amount</th>\r\n\t\t<th class=\"th-sm\">Bail Paid</th>\r\n\t\t<th class=\"th-sm\">Bail Date</th>\r\n\t\t<th class=\"th-sm\">Bail Type</th>\r\n\t\t<th class=\"th-sm\">Prelim Hearing Date</th>\r\n\t\t<th class=\"th-sm\">Prelim Hearing Time</th>\r\n\t\t<th class=\"th-sm\">Parsed Offenses</th>\r\n\t</tr>\r\n\t</thead>\r\n\t<tbody id=\"input_table\">\r\n\r\n\t</tbody>\r\n\t<!--<tfoot>\r\n\t<tr>\r\n\t\t<th>Name\r\n\t\t</th>\r\n\t\t<th>Position\r\n\t\t</th>\r\n\t\t<th>Office\r\n\t\t</th>\r\n\t\t<th>Age\r\n\t\t</th>\r\n\t\t<th>Start date\r\n\t\t</th>\r\n\t\t<th>Salary\r\n\t\t</th>\r\n\t</tr>\r\n\t</tfoot>-->\r\n</table>\r\n<script>\r\n\r\n    for (let i = 1; i < blah.length; i++) { // Loop through every title element\r\n        var outputText = \"\";\r\n\r\n        outputText += \"<tr>\"\r\n        //$('#input_table').append(\"<tr>\")\r\n\r\n        for (let j = 1; j < actualArrays.length; j++)\r\n            outputText += \"<td>\" + actualArrays[j][i] + \"</td>\"\r\n\r\n        outputText += \"</tr>\"\r\n\r\n        $('#input_table').append(outputText)\r\n\r\n    }\r\n\r\n    // $('#dtBasicExample').DataTable();\r\n    // $('#dtBasicExample').add()\r\n    // $('.dataTables_length').addClass('bs-select');\r\n</script>\r\n\r\n<script>\r\n\r\n\t/*var arrThing = []\r\n\r\n\tfor (let i = 0; i < arrThing.length; i++)\r\n\t    if (arrThing[i]) {\r\n\r\n\t\t}*/\r\n\r\n    $(document).ready(function () {\r\n        $('#dtBasicExample').DataTable();\r\n        $('#dtBasicExample').add()\r\n        $('.dataTables_length').addClass('bs-select');\r\n    });\r\n</script>\r\n\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- index.html	(revision e2468d2a6874fce0b397ccd4fe560f8e3d5d9bd0)
++++ index.html	(date 1603000263494)
+@@ -6,7 +6,7 @@
+ 	<link rel="stylesheet" href="css/db_style.css">
+ 	<link rel="stylesheet" href="css/bootstrap.min.css">
+ 	<link rel="stylesheet" href="css/addons/datatables.min.css">
+-	<!-- <link rel="stylesheet" href="css/styles.css"> -->
++	<link rel="stylesheet" href="css/styles.css">
+ 
+ 	<script src="js/jquery.js"></script>
+ 	<script src="js/bootstrap.min.js"></script>
+@@ -19,7 +19,7 @@
+ 	<script>
+         let blah;
+ 
+-        // Docket, Offenses, Offense Date, Attorney,
++        // Docket, Offenses, Offense Date, Attorney, zip, bail amount, bail paid, bail type
+         let arrayNameContainer = ['index', 'docket_no', 'offenses', 'offense_date', 'arrest_dt', 'case_status',
+             'arresting_officer', 'attorney', 'dob', 'zip', 'bail_set_by', 'bail_amount', 'bail_paid', 'bail_date',
+             'bail_type', 'prelim_hearing_dt', 'prelim_hearing_time', 'parsed_offenses']
+@@ -186,7 +186,6 @@
+         var outputText = "";
+ 
+         outputText += "<tr>"
+-        //$('#input_table').append("<tr>")
+ 
+         for (let j = 1; j < actualArrays.length; j++)
+             outputText += "<td>" + actualArrays[j][i] + "</td>"
+@@ -196,10 +195,6 @@
+         $('#input_table').append(outputText)
+ 
+     }
+-
+-    // $('#dtBasicExample').DataTable();
+-    // $('#dtBasicExample').add()
+-    // $('.dataTables_length').addClass('bs-select');
+ </script>
+ 
+ <script>
